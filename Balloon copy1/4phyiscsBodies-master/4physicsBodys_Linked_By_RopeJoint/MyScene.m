@@ -60,7 +60,20 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 @property SKPhysicsJointPin* myRopeJoint6;
 @end
 
-@implementation MyScene
+@implementation MyScene{
+    SKNode *_hudLayerNode;
+    SKAction *_scoreFlashAction;
+    
+SKLabelNode *_playerHealthLabel;
+NSString *_healthBar;
+}
+
+
+- (void)setupSceneLayers {
+    _hudLayerNode = [SKNode node];
+    [self addChild:_hudLayerNode];
+}
+
 
 -(void) activateJointRope{
     
@@ -293,11 +306,90 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
 
 
+
+- (void)setupUI {
+    int barHeight = 45; CGSize
+    backgroundSize =
+    CGSizeMake(self.size.width, barHeight);
+    
+    SKColor *backgroundColor =
+    [SKColor colorWithRed:0 green:0 blue:0.05 alpha:1.0];
+    SKSpriteNode *hudBarBackground =
+    [SKSpriteNode spriteNodeWithColor:backgroundColor
+                                 size:backgroundSize];
+    hudBarBackground.position =
+    CGPointMake(0, self.size.height - barHeight);
+    hudBarBackground.anchorPoint = CGPointZero;
+    [_hudLayerNode addChild:hudBarBackground];
+    
+    
+    // 1
+    SKLabelNode *scoreLabel =
+    [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+    // 2
+    scoreLabel.fontSize = 20.0; scoreLabel.text = @"Score: 0"; scoreLabel.name = @"scoreLabel";
+    // 3
+    scoreLabel.verticalAlignmentMode =
+    SKLabelVerticalAlignmentModeCenter;
+    // 4
+    scoreLabel.position = CGPointMake(self.size.width / 2,
+                                      self.size.height - scoreLabel.frame.size.height + 3); // 5
+    [_hudLayerNode addChild:scoreLabel];
+    
+   
+    //makes the score flash
+    _scoreFlashAction = [SKAction sequence:
+  @[[SKAction scaleTo:1.5 duration:0.1],
+    [SKAction scaleTo:1.0 duration:0.1]]];
+    
+    [scoreLabel runAction:[SKAction repeatAction:_scoreFlashAction count:10]];
+    
+    
+    
+    
+    
+    // 1
+    _healthBar = @"===================================================";
+    float testHealth = 70;
+    NSString * actualHealth = [_healthBar substringToIndex:
+                               (testHealth / 100 * _healthBar.length)];
+    // 2
+    SKLabelNode *playerHealthBackground =
+    [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+    playerHealthBackground.name = @"playerHealthBackground";
+    playerHealthBackground.fontColor = [SKColor darkGrayColor];
+    playerHealthBackground.fontSize = 10.65f;
+    playerHealthBackground.text = _healthBar;
+    
+    // 3
+    playerHealthBackground.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    playerHealthBackground.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
+    playerHealthBackground.position = CGPointMake(0,
+                                                  self.size.height - barHeight + playerHealthBackground.frame.size.height);
+    [_hudLayerNode addChild:playerHealthBackground];
+    
+    // 4
+    _playerHealthLabel =
+    [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+    _playerHealthLabel.name = @"playerHealth"; _playerHealthLabel.fontColor = [SKColor whiteColor]; _playerHealthLabel.fontSize = 10.65f; _playerHealthLabel.text = actualHealth; _playerHealthLabel.horizontalAlignmentMode =
+    SKLabelHorizontalAlignmentModeLeft; _playerHealthLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop; _playerHealthLabel.position =
+    CGPointMake(0,
+                self.size.height - barHeight +
+                _playerHealthLabel.frame.size.height);
+    [_hudLayerNode addChild:_playerHealthLabel];
+    
+    
+    
+}
+
+
 -(id)initWithSize:(CGSize)size {
     
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
+        
+      
     
     //adding background image
         SKSpriteNode *bg =
@@ -315,7 +407,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         myLabel.text = @"Score:";
         myLabel.fontSize = 30;
         myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       520);
+                                       CGRectGetMidY(self.frame));
+        
+        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
         
         [self addChild:myLabel];
         
@@ -344,6 +438,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         self.physicsBody.categoryBitMask = CNPhysicsCategoryEdge;
         
         [[SKTAudio sharedInstance] playBackgroundMusic:@"bgMusic.mp3"];
+        
+       
+        [self setupSceneLayers];
+        
+        [self setupUI];
 
     }
     return self;
