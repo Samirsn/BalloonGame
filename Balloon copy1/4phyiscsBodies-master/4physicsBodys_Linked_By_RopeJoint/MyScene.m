@@ -66,6 +66,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
 SKLabelNode *_playerHealthLabel;
 NSString *_healthBar;
+    
+    float testHealth;
 }
 
 
@@ -350,9 +352,9 @@ NSString *_healthBar;
     
     // 1
     _healthBar = @"===================================================";
-    float testHealth = 70;
-    NSString * actualHealth = [_healthBar substringToIndex:
-                               (testHealth / 100 * _healthBar.length)];
+    testHealth = 70;
+//    NSString * actualHealth = [_healthBar substringToIndex:
+//                               (testHealth / 100 * _healthBar.length)];
     // 2
     SKLabelNode *playerHealthBackground =
     [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
@@ -371,8 +373,14 @@ NSString *_healthBar;
     // 4
     _playerHealthLabel =
     [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
-    _playerHealthLabel.name = @"playerHealth"; _playerHealthLabel.fontColor = [SKColor whiteColor]; _playerHealthLabel.fontSize = 10.65f; _playerHealthLabel.text = actualHealth; _playerHealthLabel.horizontalAlignmentMode =
-    SKLabelHorizontalAlignmentModeLeft; _playerHealthLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop; _playerHealthLabel.position =
+    _playerHealthLabel.name = @"playerHealth";
+    _playerHealthLabel.fontColor = [SKColor whiteColor];
+    _playerHealthLabel.fontSize = 10.65f;
+  //  _playerHealthLabel.text = actualHealth;
+    _playerHealthLabel.horizontalAlignmentMode =
+    SKLabelHorizontalAlignmentModeLeft;
+    _playerHealthLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
+    _playerHealthLabel.position =
     CGPointMake(0,
                 self.size.height - barHeight +
                 _playerHealthLabel.frame.size.height);
@@ -402,16 +410,16 @@ NSString *_healthBar;
         
         
         //adding score label
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
-        
-        myLabel.text = @"Score:";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
-        
-        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
-        
-        [self addChild:myLabel];
+//        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+//        
+//        myLabel.text = @"Score:";
+//        myLabel.fontSize = 30;
+//        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+//                                       CGRectGetMidY(self.frame));
+//        
+//        myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
+//        
+//        [self addChild:myLabel];
         
         
         
@@ -603,7 +611,14 @@ NSString *_healthBar;
         _myAvoid1.physicsBody.velocity = CGVectorMake(0, 0);
     }
     
+    
+    NSString * actualHealth = [_healthBar substringToIndex:
+                                (testHealth / 100 * _healthBar.length)];
+    
+                               _playerHealthLabel.text = actualHealth;
 
+    
+    
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
@@ -614,7 +629,7 @@ NSString *_healthBar;
     {
         NSLog(@"FAIL");
         [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
-        
+        testHealth --;
     
         _mySquare2.color = [SKColor blackColor];
         _mySquare3.color = [SKColor blackColor];

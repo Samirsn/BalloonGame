@@ -10,7 +10,6 @@
 		A8571A2B18E4EBF100132669 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = A8571A2918E4EBF100132669 /* background.png */; };
 		A8571A2E18E4EEAB00132669 /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = A8571A2D18E4EEAB00132669 /* balloon.png */; };
 		A8571A3418E4F27900132669 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = A8571A3318E4F27900132669 /* background2.png */; };
-		A8571A3818E6010200132669 /* Entity.m in Sources */ = {isa = PBXBuildFile; fileRef = A8571A3718E6010200132669 /* Entity.m */; };
 		D56006C418B2896700D0C342 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C318B2896700D0C342 /* Foundation.framework */; };
 		D56006C618B2896700D0C342 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C518B2896700D0C342 /* CoreGraphics.framework */; };
 		D56006C818B2896700D0C342 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C718B2896700D0C342 /* UIKit.framework */; };
@@ -53,8 +52,6 @@
 		A8571A2918E4EBF100132669 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		A8571A2D18E4EEAB00132669 /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = balloon.png; sourceTree = "<group>"; };
 		A8571A3318E4F27900132669 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background2.png; sourceTree = "<group>"; };
-		A8571A3618E6010200132669 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
-		A8571A3718E6010200132669 /* Entity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entity.m; sourceTree = "<group>"; };
 		D56006C018B2896700D0C342 /* BalloonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalloonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56006C318B2896700D0C342 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D56006C518B2896700D0C342 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,15 +116,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A8571A3518E6009300132669 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				A8571A3618E6010200132669 /* Entity.h */,
-				A8571A3718E6010200132669 /* Entity.m */,
-			);
-			name = Entities;
-			sourceTree = "<group>";
-		};
 		D56006B718B2896700D0C342 = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +150,6 @@
 		D56006CB18B2896800D0C342 /* 4physicsBodys_Linked_By_RopeJoint */ = {
 			isa = PBXGroup;
 			children = (
-				A8571A3518E6009300132669 /* Entities */,
 				D56006D418B2896800D0C342 /* AppDelegate.h */,
 				D56006D518B2896800D0C342 /* AppDelegate.m */,
 				D56006D718B2896800D0C342 /* Main.storyboard */,
@@ -344,7 +331,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8571A3818E6010200132669 /* Entity.m in Sources */,
 				D56006DF18B2896800D0C342 /* MyScene.m in Sources */,
 				F08D2E4C18E4D54300BEFE19 /* SKTAudio.m in Sources */,
 				D56006DC18B2896800D0C342 /* ViewController.m in Sources */,
