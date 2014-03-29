@@ -18,7 +18,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     CNPhysicsCategoryBalloon    = 1 << 0,  // 0001 = 1
     CNPhysicsCategoryAvoid  = 1 << 1,  // 0010 = 2
     
-    CNPhysicsCategoryBed    = 1 << 2,  // 0100 = 4
+    CNPhysicsCategoryCoin    = 1 << 2,  // 0100 = 4
+    
     CNPhysicsCategoryEdge   = 1 << 3,  // 1000 = 8
     CNPhysicsCategoryLabel   = 1 << 4,  // 10000 = 16
     CNPhysicsCategorySpring   = 1 << 5,  // 100000 = 32
@@ -36,14 +37,17 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 @property SKSpriteNode* mySquare7;
 @property SKSpriteNode* mySquare8;
 
-@property SKSpriteNode* myWallLeft;
-@property SKSpriteNode* myWallR;
-@property SKSpriteNode* myWallB;
+//@property SKSpriteNode* myWallLeft;
+//@property SKSpriteNode* myWallR;
+//@property SKSpriteNode* myWallB;
 
 
 @property SKSpriteNode* myAvoid;
 
 @property SKSpriteNode* myAvoid1;
+
+@property SKSpriteNode* myCoin;
+
 
 
 
@@ -68,6 +72,9 @@ SKLabelNode *_playerHealthLabel;
 NSString *_healthBar;
     
     float testHealth;
+    float scoreValue;
+    
+    SKLabelNode *_scoreLabel;
 }
 
 
@@ -230,14 +237,16 @@ NSString *_healthBar;
     _mySquare7.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     _mySquare8.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     
-    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
-    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid;
+    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    
+
     
 }
 
@@ -284,28 +293,38 @@ NSString *_healthBar;
     [self addChild:_myAvoid1];
 
 }
--(void)makeWall{
-        _myWallLeft = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
-        _myWallLeft.position = CGPointMake(10, 0);
-        _myWallLeft.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallLeft.size];
-        [_myWallLeft.physicsBody setDynamic:NO];
+
+
+
+-(void) makeCoins{
     
-        [self addChild:_myWallLeft];
+    _myCoin = [[SKSpriteNode alloc]initWithColor: [SKColor blackColor] size:CGSizeMake(25,25)];
+    _myCoin.position = CGPointMake(100, 300);
+    _myCoin.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myCoin.size];
+    [_myCoin.physicsBody setDynamic:YES];
+   
+    _myCoin.physicsBody.categoryBitMask = CNPhysicsCategoryCoin;
+    _myCoin.physicsBody.collisionBitMask = CNPhysicsCategoryBalloon;
     
-    _myWallR = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
-    _myWallR.position = CGPointMake(315, 0);
-    _myWallR.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallR.size];
-    [_myWallR.physicsBody setDynamic:NO];
+    [self addChild:_myCoin];
     
-    [self addChild:_myWallR];
-    
-//    _myWallB = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(250, 10)];
-//    _myWallB.position = CGPointMake(225, 200);
-//    _myWallB.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallR.size];
-//    [_myWallB.physicsBody setDynamic:NO];
+}
+//-(void)makeWall{
+//        _myWallLeft = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
+//        _myWallLeft.position = CGPointMake(10, 0);
+//        _myWallLeft.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallLeft.size];
+//        [_myWallLeft.physicsBody setDynamic:NO];
 //    
-//    [self addChild:_myWallB];
-    }
+//        [self addChild:_myWallLeft];
+//    
+//    _myWallR = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
+//    _myWallR.position = CGPointMake(315, 0);
+//    _myWallR.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallR.size];
+//    [_myWallR.physicsBody setDynamic:NO];
+//    
+//    [self addChild:_myWallR];
+
+    //}
 
 
 
@@ -326,17 +345,21 @@ NSString *_healthBar;
     
     
     // 1
-    SKLabelNode *scoreLabel =
+    _scoreLabel =
     [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
     // 2
-    scoreLabel.fontSize = 20.0; scoreLabel.text = @"Score: 0"; scoreLabel.name = @"scoreLabel";
+    _scoreLabel.fontSize = 20.0;
+   // scoreLabel.text = @"%f", scoreValue;
+    
+//    _scoreLabel.text = [NSString stringWithFormat: @"%f", scoreValue];
+//    _scoreLabel.name = @"scoreLabel";
     // 3
-    scoreLabel.verticalAlignmentMode =
+    _scoreLabel.verticalAlignmentMode =
     SKLabelVerticalAlignmentModeCenter;
     // 4
-    scoreLabel.position = CGPointMake(self.size.width / 2,
-                                      self.size.height - scoreLabel.frame.size.height + 3); // 5
-    [_hudLayerNode addChild:scoreLabel];
+    _scoreLabel.position = CGPointMake(self.size.width / 2,
+                                      self.size.height - _scoreLabel.frame.size.height -30); // 5
+    [_hudLayerNode addChild:_scoreLabel];
     
    
     //makes the score flash
@@ -344,12 +367,12 @@ NSString *_healthBar;
   @[[SKAction scaleTo:1.5 duration:0.1],
     [SKAction scaleTo:1.0 duration:0.1]]];
     
-    [scoreLabel runAction:[SKAction repeatAction:_scoreFlashAction count:10]];
+    [_scoreLabel runAction:[SKAction repeatAction:_scoreFlashAction count:10]];
     
     
     
     
-    
+    scoreValue = 0;
     // 1
     _healthBar = @"===================================================";
     testHealth = 70;
@@ -377,13 +400,9 @@ NSString *_healthBar;
     _playerHealthLabel.fontColor = [SKColor whiteColor];
     _playerHealthLabel.fontSize = 10.65f;
   //  _playerHealthLabel.text = actualHealth;
-    _playerHealthLabel.horizontalAlignmentMode =
-    SKLabelHorizontalAlignmentModeLeft;
+    _playerHealthLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     _playerHealthLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeTop;
-    _playerHealthLabel.position =
-    CGPointMake(0,
-                self.size.height - barHeight +
-                _playerHealthLabel.frame.size.height);
+    _playerHealthLabel.position = CGPointMake(0, self.size.height - barHeight + _playerHealthLabel.frame.size.height);
     [_hudLayerNode addChild:_playerHealthLabel];
     
     
@@ -435,9 +454,11 @@ NSString *_healthBar;
 //       [self makeShelf];
      
         
-        [self makeWall];
+     //   [self makeWall];
         
         [self makeAvoid];
+        [self makeCoins];
+    
         
         self.physicsWorld.gravity = CGVectorMake(0, 1);
         
@@ -611,11 +632,19 @@ NSString *_healthBar;
         _myAvoid1.physicsBody.velocity = CGVectorMake(0, 0);
     }
     
+    if (_myCoin.position.y > 550) {
+        _myCoin.position = CGPointMake(240, -30);
+        _myCoin.physicsBody.velocity = CGVectorMake(0, 0);
+    }
+    
     
     NSString * actualHealth = [_healthBar substringToIndex:
                                 (testHealth / 100 * _healthBar.length)];
     
                                _playerHealthLabel.text = actualHealth;
+    
+    _scoreLabel.text = [NSString stringWithFormat: @"Score: %.0f", scoreValue];
+    _scoreLabel.name = @"scoreLabel";
 
     
     
@@ -638,7 +667,8 @@ NSString *_healthBar;
         _mySquare6.color = [SKColor blackColor];
         _mySquare7.color = [SKColor blackColor];
         _mySquare8.color = [SKColor blackColor];
-    } else{
+    }
+    else{
         NSLog(@"No longer touching.");
         _mySquare2.color = [SKColor grayColor];
         _mySquare3.color = [SKColor grayColor];
@@ -648,6 +678,28 @@ NSString *_healthBar;
         _mySquare7.color = [SKColor grayColor];
         _mySquare8.color = [SKColor grayColor];
     }
+    
+    
+    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryCoin))
+        
+    {
+        
+        NSLog(@"%f", scoreValue);
+        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+        
+        _myCoin.color = [SKColor redColor];
+        scoreValue ++;
+        
+    }
+    else{
+        
+        _myCoin.color = [SKColor blackColor];
+    }
+
+    
+    
+    
+    
 }
 
 /*-(void)didEndContact:(SKPhysicsContact *)contact
