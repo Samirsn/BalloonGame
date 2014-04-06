@@ -20,7 +20,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     CNPhysicsCategoryCoin    = 1 << 2,  // 0100 = 4
     
-    CNPhysicsCategoryEdge   = 1 << 3,  // 1000 = 8
+    CNPhysicsCategoryDetach   = 1 << 3,  // 1000 = 8
+    
     CNPhysicsCategoryLabel   = 1 << 4,  // 10000 = 16
     CNPhysicsCategorySpring   = 1 << 5,  // 100000 = 32
     CNPhysicsCategoryHook   = 1 << 6,  // 1000000 = 64
@@ -48,6 +49,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 @property SKSpriteNode* myCoin;
 
+@property SKSpriteNode* myDetach;
 
 
 
@@ -237,14 +239,14 @@ NSString *_healthBar;
     _mySquare7.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     _mySquare8.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     
-    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
-    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin;
+    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
     
 
     
@@ -277,7 +279,7 @@ NSString *_healthBar;
     [_myAvoid.physicsBody setDynamic:YES];
     
     _myAvoid.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryEdge;
+    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
 
     [self addChild:_myAvoid];
     
@@ -288,7 +290,7 @@ NSString *_healthBar;
     [_myAvoid1.physicsBody setDynamic:YES];
     
     _myAvoid1.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid1.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryEdge;
+    _myAvoid1.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
     
     [self addChild:_myAvoid1];
 
@@ -308,7 +310,24 @@ NSString *_healthBar;
     
     [self addChild:_myCoin];
     
+
 }
+
+
+-(void) makeDetach{
+    
+    _myDetach = [[SKSpriteNode alloc]initWithColor: [SKColor greenColor] size:CGSizeMake(25,25)];
+    _myDetach.position = CGPointMake(100, 300);
+    _myDetach.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myCoin.size];
+    [_myDetach.physicsBody setDynamic:YES];
+    
+    _myDetach.physicsBody.categoryBitMask = CNPhysicsCategoryDetach;
+    _myDetach.physicsBody.collisionBitMask = CNPhysicsCategoryBalloon;
+    
+    [self addChild:_myDetach];
+    
+}
+
 //-(void)makeWall{
 //        _myWallLeft = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
 //        _myWallLeft.position = CGPointMake(10, 0);
@@ -451,6 +470,7 @@ NSString *_healthBar;
         [self spawnSquares];
         
         [self activateJointRope];
+        
 //       [self makeShelf];
      
         
@@ -458,13 +478,14 @@ NSString *_healthBar;
         
         [self makeAvoid];
         [self makeCoins];
+        [self makeDetach];
     
         
         self.physicsWorld.gravity = CGVectorMake(0, 1);
         
         //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.physicsWorld.contactDelegate = self;
-        self.physicsBody.categoryBitMask = CNPhysicsCategoryEdge;
+        //self.physicsBody.categoryBitMask = CNPhysicsCategoryEdge;
         
         [[SKTAudio sharedInstance] playBackgroundMusic:@"bgMusic.mp3"];
         
@@ -576,10 +597,6 @@ NSString *_healthBar;
             _myCircle.color = [SKColor purpleColor];
         }
 
-        
-       
-        //[_mySquare8 setPosition:location];
-        
     }
 }
 
@@ -635,6 +652,11 @@ NSString *_healthBar;
     if (_myCoin.position.y > 550) {
         _myCoin.position = CGPointMake(240, -30);
         _myCoin.physicsBody.velocity = CGVectorMake(0, 0);
+    }
+   
+    if (_myDetach.position.y > 550) {
+        _myDetach.position = CGPointMake(200, -30);
+        _myDetach.physicsBody.velocity = CGVectorMake(0, 0);
     }
     
     
@@ -698,7 +720,18 @@ NSString *_healthBar;
 
     
     
-    
+    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryDetach))
+        
+    {
+        
+        NSLog(@"touch");
+        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+        
+        areWeTouchingAString = NO;
+        [_mySquare8.physicsBody setDynamic:YES];
+        
+        
+    }
     
 }
 
