@@ -13,6 +13,7 @@
 
 BOOL areWeTouchingAString;
 
+    BOOL gameOver;
 
 
 

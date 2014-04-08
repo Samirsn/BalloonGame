@@ -12,6 +12,7 @@
 #import "SKTAudio.h"
 #import "SKTUtils.h"
 
+
 //enumeration
 typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 {
@@ -394,7 +395,7 @@ NSString *_healthBar;
     scoreValue = 0;
     // 1
     _healthBar = @"===================================================";
-    testHealth = 70;
+    testHealth = 100;
 //    NSString * actualHealth = [_healthBar substringToIndex:
 //                               (testHealth / 100 * _healthBar.length)];
     // 2
@@ -430,6 +431,9 @@ NSString *_healthBar;
 
 
 -(id)initWithSize:(CGSize)size {
+
+    
+    gameOver = NO;
     
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -529,8 +533,25 @@ NSString *_healthBar;
                 areWeTouchingAString = YES;
                
             }
-            else{
+            if (gameOver = YES) {
+                NSLog(@"hola");
+                
+                _myCircle.physicsBody.velocity = CGVectorMake(0, 0);
 
+                
+                [_myCircle setPosition:CGPointMake(self.size.width/1.5, self.size.height/1.5)];
+                [_mySquare2 setPosition:CGPointMake(self.size.width/1.5, self.size.height/1.6)];
+                [_mySquare3 setPosition:CGPointMake(self.size.width/1.5, self.size.height/1.7)];
+                [_mySquare4 setPosition:CGPointMake(self.size.width/1.5, self.size.height/1.8)];
+                [_mySquare5 setPosition:CGPointMake(self.size.width/1.5, self.size.height/1.9)];
+                [_mySquare6 setPosition:CGPointMake(self.size.width/1.5, self.size.height/2)];
+                [_mySquare7 setPosition:CGPointMake(self.size.width/1.5, self.size.height/2.1)];
+                [_mySquare8 setPosition:CGPointMake(self.size.width/1.5, self.size.height/2.2)];
+                
+                
+            }
+            if (gameOver =NO) {
+                NSLog(@"NO");
             }
     
         }
@@ -618,6 +639,11 @@ NSString *_healthBar;
     _mySquare7.color = [SKColor whiteColor];
     _mySquare8.color = [SKColor whiteColor];
     
+    if (gameOver == YES) {
+        gameOver = NO;
+
+    }
+
     
 }
 
@@ -660,6 +686,43 @@ NSString *_healthBar;
     }
     
     
+    
+    if (_myCircle.position.y > 600 && _myCircle.position.y < 615){
+        NSLog(@"you lose");
+        
+        
+        SKLabelNode *myLabel1 = [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+        
+        myLabel1.text = @"Game Over";
+        myLabel1.fontSize = 40;
+        myLabel1.position = CGPointMake(165, 330);
+        
+        [self addChild:myLabel1];
+        
+        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica"];
+        
+        myLabel.text = @"Tap To Restart";
+        myLabel.fontSize = 20;
+        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+                                       CGRectGetMidY(self.frame));
+        
+        [self addChild:myLabel];
+   
+        BOOL gameOver = YES;
+     
+        
+        if (_myCircle.position.y <600) {
+            BOOL gameOver = NO;
+        }
+        
+    }
+    
+
+    
+    
+    
+    
+    
     NSString * actualHealth = [_healthBar substringToIndex:
                                 (testHealth / 100 * _healthBar.length)];
     
@@ -669,7 +732,7 @@ NSString *_healthBar;
     _scoreLabel.name = @"scoreLabel";
 
     
-    
+
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
