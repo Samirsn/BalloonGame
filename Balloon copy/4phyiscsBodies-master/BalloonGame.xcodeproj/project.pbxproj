@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A8DCC82918F3799600AA76CE /* avoid.png in Resources */ = {isa = PBXBuildFile; fileRef = A8DCC82818F3799600AA76CE /* avoid.png */; };
-		A8DCC82B18F379BC00AA76CE /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = A8DCC82A18F379BC00AA76CE /* coin.png */; };
-		A8DCC82D18F379D500AA76CE /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = A8DCC82C18F379D500AA76CE /* bubble.png */; };
-		A8DCC82F18F379EE00AA76CE /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = A8DCC82E18F379EE00AA76CE /* balloon.png */; };
 		D56006C418B2896700D0C342 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C318B2896700D0C342 /* Foundation.framework */; };
 		D56006C618B2896700D0C342 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C518B2896700D0C342 /* CoreGraphics.framework */; };
 		D56006C818B2896700D0C342 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C718B2896700D0C342 /* UIKit.framework */; };
@@ -37,6 +33,14 @@
 		F08D2E5418E4E07400BEFE19 /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08D2E5018E4E07400BEFE19 /* lose.mp3 */; };
 		F08D2E5518E4E07400BEFE19 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08D2E5118E4E07400BEFE19 /* pop.mp3 */; };
 		F08D2E5618E4E07400BEFE19 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F08D2E5218E4E07400BEFE19 /* win.mp3 */; };
+		F09E890C18F391B500022C19 /* avoid.png in Resources */ = {isa = PBXBuildFile; fileRef = F09E890818F391B500022C19 /* avoid.png */; };
+		F09E890D18F391B500022C19 /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = F09E890918F391B500022C19 /* balloon.png */; };
+		F09E890E18F391B500022C19 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = F09E890A18F391B500022C19 /* bubble.png */; };
+		F09E890F18F391B500022C19 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = F09E890B18F391B500022C19 /* coin.png */; };
+		F09E891418F3927000022C19 /* BalloonSong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F09E891018F3927000022C19 /* BalloonSong.mp3 */; };
+		F09E891518F3927000022C19 /* bubble.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F09E891118F3927000022C19 /* bubble.mp3 */; };
+		F09E891618F3927000022C19 /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = F09E891218F3927000022C19 /* coin.wav */; };
+		F09E891718F3927000022C19 /* coinUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F09E891318F3927000022C19 /* coinUp.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +54,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A8DCC82818F3799600AA76CE /* avoid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avoid.png; path = ../../../../../Desktop/avoid.png; sourceTree = "<group>"; };
-		A8DCC82A18F379BC00AA76CE /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = ../../../../../Desktop/coin.png; sourceTree = "<group>"; };
-		A8DCC82C18F379D500AA76CE /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bubble.png; path = ../../../../../Desktop/bubble.png; sourceTree = "<group>"; };
-		A8DCC82E18F379EE00AA76CE /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = balloon.png; path = "../../../../../Documents/ms2/BalloonGame3rdIterationUpdated-master/balloon.png"; sourceTree = "<group>"; };
 		D56006C018B2896700D0C342 /* BalloonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalloonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56006C318B2896700D0C342 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D56006C518B2896700D0C342 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -91,6 +91,14 @@
 		F08D2E5018E4E07400BEFE19 /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
 		F08D2E5118E4E07400BEFE19 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
 		F08D2E5218E4E07400BEFE19 /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
+		F09E890818F391B500022C19 /* avoid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = avoid.png; path = Images.xcassets/avoid.png; sourceTree = "<group>"; };
+		F09E890918F391B500022C19 /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = balloon.png; path = Images.xcassets/balloon.png; sourceTree = "<group>"; };
+		F09E890A18F391B500022C19 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bubble.png; path = Images.xcassets/bubble.png; sourceTree = "<group>"; };
+		F09E890B18F391B500022C19 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Images.xcassets/coin.png; sourceTree = "<group>"; };
+		F09E891018F3927000022C19 /* BalloonSong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BalloonSong.mp3; sourceTree = "<group>"; };
+		F09E891118F3927000022C19 /* bubble.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bubble.mp3; sourceTree = "<group>"; };
+		F09E891218F3927000022C19 /* coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin.wav; sourceTree = "<group>"; };
+		F09E891318F3927000022C19 /* coinUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinUp.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,10 +179,10 @@
 		D56006CC18B2896800D0C342 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A8DCC82818F3799600AA76CE /* avoid.png */,
-				A8DCC82E18F379EE00AA76CE /* balloon.png */,
-				A8DCC82C18F379D500AA76CE /* bubble.png */,
-				A8DCC82A18F379BC00AA76CE /* coin.png */,
+				F09E890818F391B500022C19 /* avoid.png */,
+				F09E890918F391B500022C19 /* balloon.png */,
+				F09E890A18F391B500022C19 /* bubble.png */,
+				F09E890B18F391B500022C19 /* coin.png */,
 				D56006CD18B2896800D0C342 /* BalloonGame-Info.plist */,
 				D56006CE18B2896800D0C342 /* InfoPlist.strings */,
 				D56006D118B2896800D0C342 /* main.m */,
@@ -221,6 +229,10 @@
 		F08D2E4E18E4E07400BEFE19 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F09E891018F3927000022C19 /* BalloonSong.mp3 */,
+				F09E891118F3927000022C19 /* bubble.mp3 */,
+				F09E891218F3927000022C19 /* coin.wav */,
+				F09E891318F3927000022C19 /* coinUp.mp3 */,
 				F08D2E4F18E4E07400BEFE19 /* bgMusic.mp3 */,
 				F08D2E5018E4E07400BEFE19 /* lose.mp3 */,
 				F08D2E5118E4E07400BEFE19 /* pop.mp3 */,
@@ -305,17 +317,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F09E891618F3927000022C19 /* coin.wav in Resources */,
 				D56006D018B2896800D0C342 /* InfoPlist.strings in Resources */,
+				F09E890C18F391B500022C19 /* avoid.png in Resources */,
+				F09E891418F3927000022C19 /* BalloonSong.mp3 in Resources */,
+				F09E890E18F391B500022C19 /* bubble.png in Resources */,
 				D56006E318B2896800D0C342 /* Images.xcassets in Resources */,
+				F09E891718F3927000022C19 /* coinUp.mp3 in Resources */,
+				F09E890F18F391B500022C19 /* coin.png in Resources */,
+				F09E891518F3927000022C19 /* bubble.mp3 in Resources */,
 				F08D2E5318E4E07400BEFE19 /* bgMusic.mp3 in Resources */,
 				F08D2E5618E4E07400BEFE19 /* win.mp3 in Resources */,
-				A8DCC82918F3799600AA76CE /* avoid.png in Resources */,
 				D56006E118B2896800D0C342 /* Spaceship.png in Resources */,
-				A8DCC82B18F379BC00AA76CE /* coin.png in Resources */,
 				D56006D918B2896800D0C342 /* Main.storyboard in Resources */,
 				F08D2E5518E4E07400BEFE19 /* pop.mp3 in Resources */,
-				A8DCC82F18F379EE00AA76CE /* balloon.png in Resources */,
-				A8DCC82D18F379D500AA76CE /* bubble.png in Resources */,
+				F09E890D18F391B500022C19 /* balloon.png in Resources */,
 				F08D2E5418E4E07400BEFE19 /* lose.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

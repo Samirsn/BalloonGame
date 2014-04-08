@@ -585,7 +585,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         self.physicsWorld.contactDelegate = self;
         //self.physicsBody.categoryBitMask = CNPhysicsCategoryEdge;
         
-        [[SKTAudio sharedInstance] playBackgroundMusic:@"bgMusic.mp3"];
+        [[SKTAudio sharedInstance] playBackgroundMusic:@"BalloonSong.mp3"];
         
         
         [self setupSceneLayers];
@@ -852,7 +852,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryCoin))
         
     {
-        if (scoreValue > 0 && scoreValue < 3) {
+        [self runAction:[SKAction playSoundFileNamed:@"coin.wav" waitForCompletion:NO]];
+        
+        if (scoreValue >= 0 && scoreValue < 3) {
             [_myCoin removeFromParent];
             [self makeCoins];
         }
@@ -909,7 +911,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         //        [self makeCoins];
         
         NSLog(@"%f", scoreValue);
-        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+        //[self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
         
         _myCoin.color = [SKColor redColor];
         scoreValue ++;
@@ -926,7 +928,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryDetach))
         
     {
-        
+        [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
         [_myDetach removeFromParent];
         [self makeDetach];
         
