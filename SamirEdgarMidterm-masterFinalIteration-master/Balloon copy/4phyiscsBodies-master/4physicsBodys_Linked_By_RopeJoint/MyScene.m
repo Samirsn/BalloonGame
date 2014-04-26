@@ -869,9 +869,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
  
         NSLog(@"FAIL");
+
         [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
         testHealth --;
-        
+        NSLog(@"health: %f", testHealth);
+
         //
 //        [_myAvoid removeFromParent];
         _myAvoid.position = CGPointMake(ScalarRandomRange(15,300), 600);
@@ -939,7 +941,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         
        
         testHealth ++;
-
+       
+        if (testHealth >= 3) {
+            testHealth =3;
+            
+        }
         
         [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
         [_myHeart removeFromParent];
@@ -951,7 +957,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         areWeTouchingAString = NO;
         [_mySquare8.physicsBody setDynamic:YES];
         
-    
+        NSLog(@"health: %f", testHealth);
         
     }
     
