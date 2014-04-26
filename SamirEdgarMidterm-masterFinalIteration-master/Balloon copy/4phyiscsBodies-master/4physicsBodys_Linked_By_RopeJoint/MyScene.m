@@ -866,12 +866,26 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         [avoidGuy.node removeFromParent];
     }
     
-    
- 
+     
+
         NSLog(@"FAIL");
 
         [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
         testHealth --;
+        
+        if (testHealth == 2) {
+            [_myCircle runAction:
+             [SKAction animateWithTextures:
+              @[[SKTexture textureWithImageNamed:@"damage1.png"]]
+                              timePerFrame:0.25]];
+        }
+        if (testHealth == 1) {
+            [_myCircle runAction:
+             [SKAction animateWithTextures:
+              @[[SKTexture textureWithImageNamed:@"damage2.png"]]
+                              timePerFrame:0.25]];
+        }
+        
         NSLog(@"health: %f", testHealth);
 
         //
@@ -908,6 +922,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     {
         [self runAction:[SKAction playSoundFileNamed:@"coin.wav" waitForCompletion:NO]];
         scoreValue ++;
+        [_scoreLabel runAction:[SKAction repeatAction:_scoreFlashAction count:1]];
         NSLog(@"%f", scoreValue);
         [_myCoin removeFromParent];
         [self makeCoins];
@@ -944,8 +959,25 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
        
         if (testHealth >= 3) {
             testHealth =3;
+           
+
+                [_myCircle runAction:
+                 [SKAction animateWithTextures:
+                  @[[SKTexture textureWithImageNamed:@"balloon.png"]]
+                                  timePerFrame:0.25]];
             
         }
+        
+        
+        if (testHealth == 2) {
+            
+            [_myCircle runAction:
+             [SKAction animateWithTextures:
+              @[[SKTexture textureWithImageNamed:@"damage1.png"]]
+                              timePerFrame:0.25]];
+            
+        }
+
         
         [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
         [_myHeart removeFromParent];

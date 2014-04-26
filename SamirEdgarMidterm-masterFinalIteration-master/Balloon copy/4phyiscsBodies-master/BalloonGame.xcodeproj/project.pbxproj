@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8A9EDE4190C614F008E57CB /* damage1.png in Resources */ = {isa = PBXBuildFile; fileRef = A8A9EDE3190C614F008E57CB /* damage1.png */; };
+		A8A9EDE6190C6F73008E57CB /* damage2.png in Resources */ = {isa = PBXBuildFile; fileRef = A8A9EDE5190C6F73008E57CB /* damage2.png */; };
 		A8B0645E19030AD000500A96 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0645D19030AD000500A96 /* smoke.png */; };
 		A8B0646019031E2100500A96 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0645F19031E2100500A96 /* heart.png */; };
 		D56006C418B2896700D0C342 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C318B2896700D0C342 /* Foundation.framework */; };
@@ -56,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8A9EDE3190C614F008E57CB /* damage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = damage1.png; sourceTree = "<group>"; };
+		A8A9EDE5190C6F73008E57CB /* damage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = damage2.png; sourceTree = "<group>"; };
 		A8B0645D19030AD000500A96 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
 		A8B0645F19031E2100500A96 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		D56006C018B2896700D0C342 /* BalloonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalloonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				F09E890818F391B500022C19 /* avoid.png */,
+				A8A9EDE5190C6F73008E57CB /* damage2.png */,
+				A8A9EDE3190C614F008E57CB /* damage1.png */,
 				F09E890918F391B500022C19 /* balloon.png */,
 				A8B0645F19031E2100500A96 /* heart.png */,
 				A8B0645D19030AD000500A96 /* smoke.png */,
@@ -330,6 +336,7 @@
 				F09E890E18F391B500022C19 /* bubble.png in Resources */,
 				D56006E318B2896800D0C342 /* Images.xcassets in Resources */,
 				F09E891718F3927000022C19 /* coinUp.mp3 in Resources */,
+				A8A9EDE6190C6F73008E57CB /* damage2.png in Resources */,
 				F09E890F18F391B500022C19 /* coin.png in Resources */,
 				F09E891518F3927000022C19 /* bubble.mp3 in Resources */,
 				F08D2E5318E4E07400BEFE19 /* bgMusic.mp3 in Resources */,
@@ -340,6 +347,7 @@
 				D56006D918B2896800D0C342 /* Main.storyboard in Resources */,
 				F08D2E5518E4E07400BEFE19 /* pop.mp3 in Resources */,
 				F09E890D18F391B500022C19 /* balloon.png in Resources */,
+				A8A9EDE4190C614F008E57CB /* damage1.png in Resources */,
 				F08D2E5418E4E07400BEFE19 /* lose.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
