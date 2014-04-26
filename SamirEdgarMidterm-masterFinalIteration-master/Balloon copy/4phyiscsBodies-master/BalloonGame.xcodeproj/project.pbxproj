@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8B0645E19030AD000500A96 /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0645D19030AD000500A96 /* smoke.png */; };
+		A8B0646019031E2100500A96 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = A8B0645F19031E2100500A96 /* heart.png */; };
 		D56006C418B2896700D0C342 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C318B2896700D0C342 /* Foundation.framework */; };
 		D56006C618B2896700D0C342 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C518B2896700D0C342 /* CoreGraphics.framework */; };
 		D56006C818B2896700D0C342 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56006C718B2896700D0C342 /* UIKit.framework */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A8B0645D19030AD000500A96 /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
+		A8B0645F19031E2100500A96 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		D56006C018B2896700D0C342 /* BalloonGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalloonGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56006C318B2896700D0C342 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D56006C518B2896700D0C342 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -181,6 +185,8 @@
 			children = (
 				F09E890818F391B500022C19 /* avoid.png */,
 				F09E890918F391B500022C19 /* balloon.png */,
+				A8B0645F19031E2100500A96 /* heart.png */,
+				A8B0645D19030AD000500A96 /* smoke.png */,
 				F09E890A18F391B500022C19 /* bubble.png */,
 				F09E890B18F391B500022C19 /* coin.png */,
 				D56006CD18B2896800D0C342 /* BalloonGame-Info.plist */,
@@ -327,7 +333,9 @@
 				F09E890F18F391B500022C19 /* coin.png in Resources */,
 				F09E891518F3927000022C19 /* bubble.mp3 in Resources */,
 				F08D2E5318E4E07400BEFE19 /* bgMusic.mp3 in Resources */,
+				A8B0646019031E2100500A96 /* heart.png in Resources */,
 				F08D2E5618E4E07400BEFE19 /* win.mp3 in Resources */,
+				A8B0645E19030AD000500A96 /* smoke.png in Resources */,
 				D56006E118B2896800D0C342 /* Spaceship.png in Resources */,
 				D56006D918B2896800D0C342 /* Main.storyboard in Resources */,
 				F08D2E5518E4E07400BEFE19 /* pop.mp3 in Resources */,

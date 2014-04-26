@@ -27,9 +27,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     CNPhysicsCategoryDetach   = 1 << 3,  // 1000 = 8
     
-    CNPhysicsCategoryLabel   = 1 << 4,  // 10000 = 16
+    CNPhysicsCategoryHeart   = 1 << 4,  // 10000 = 16
+    
     CNPhysicsCategorySpring   = 1 << 5,  // 100000 = 32
     CNPhysicsCategoryHook   = 1 << 6,  // 1000000 = 64
+    
+    
     
 };
 
@@ -50,11 +53,12 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 @property SKSpriteNode* myAvoid;
 
-@property SKSpriteNode* myAvoid1;
+//@property SKSpriteNode* myAvoid1;
 
 @property SKSpriteNode* myCoin;
 
 @property SKSpriteNode* myDetach;
+@property SKSpriteNode* myHeart;
 
 
 
@@ -267,14 +271,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _mySquare7.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     _mySquare8.physicsBody.categoryBitMask = CNPhysicsCategoryBalloon;
     
-    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
-    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach;
+    _myCircle.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare2.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare3.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare4.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare5.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare6.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare7.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
     
     
     
@@ -300,34 +304,57 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 
 
--(void)makeAvoid{
+-(void)makeAvoidWithScore: (float) localScoreVariableName  {
     
+    static float score;
+    static float hardnessLevel;
+    score = localScoreVariableName ;
+
+    hardnessLevel = 500;
+    
+    
+    SKAction *myAction = [SKAction waitForDuration:hardnessLevel];
+    SKAction *myMethod = [SKAction performSelector:@selector(makeAvoid) onTarget:self];
+    
+    
+    
+    
+    //SkAction Sequence
+   SKAction *allAction = [SKAction sequence:@[myAction, myMethod]];
+                           
+    
+    [self runAction:myAction];
+    [SKAction repeatActionForever:allAction];
+
+    
+    //for loop with a SKAction Delay, Takes Float Score value and changes.
     _myAvoid = [SKSpriteNode spriteNodeWithImageNamed:@"avoid.png"];
-    
-    //_myAvoid = [[SKSpriteNode alloc]initWithColor:[SKColor yellowColor] size:CGSizeMake(50, 50)];
     _myAvoid.position = CGPointMake(ScalarRandomRange(15,300), 600);
     _myAvoid.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myAvoid.size];
     [_myAvoid.physicsBody setDynamic:YES];
-    
     _myAvoid.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
-    
+    _myAvoid.physicsBody.collisionBitMask =  CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
     [self addChild:_myAvoid];
+
     
-    _myAvoid1 = [SKSpriteNode spriteNodeWithImageNamed:@"avoid.png"];
-    
-    //_myAvoid1 = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
-    _myAvoid1.position = CGPointMake(ScalarRandomRange(15,300), 600);
-    _myAvoid1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myAvoid1.size];
-    [_myAvoid1.physicsBody setDynamic:YES];
-    
-    _myAvoid1.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid1.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
-    
-    [self addChild:_myAvoid1];
-    NSLog(@"avoid 1 here!!");
     
 }
+
+-(void)makeAvoid {
+    
+    //for loop with a SKAction Delay, Takes Float Score value and changes.
+    _myAvoid = [SKSpriteNode spriteNodeWithImageNamed:@"avoid.png"];
+    _myAvoid.position = CGPointMake(ScalarRandomRange(15,300), 600);
+    _myAvoid.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myAvoid.size];
+    [_myAvoid.physicsBody setDynamic:YES];
+    _myAvoid.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
+    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
+    [self addChild:_myAvoid];
+    
+    
+    
+}
+
 
 -(void)makeAvoid1{
     
@@ -339,22 +366,22 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     [_myAvoid.physicsBody setDynamic:YES];
     
     _myAvoid.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
+    _myAvoid.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
     
     [self addChild:_myAvoid];
     
-    _myAvoid1 = [SKSpriteNode spriteNodeWithImageNamed:@"avoid.png"];
-    
-    //_myAvoid1 = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
-    _myAvoid1.position = CGPointMake(ScalarRandomRange(15,300), ScalarRandomRange(600,900));
-    _myAvoid1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myAvoid1.size];
-    [_myAvoid1.physicsBody setDynamic:YES];
-    
-    _myAvoid1.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
-    _myAvoid1.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
-    
-    [self addChild:_myAvoid1];
-    NSLog(@"avoid 1 here!!");
+//    _myAvoid1 = [SKSpriteNode spriteNodeWithImageNamed:@"avoid.png"];
+//    
+//    //_myAvoid1 = [[SKSpriteNode alloc]initWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
+//    _myAvoid1.position = CGPointMake(ScalarRandomRange(15,300), ScalarRandomRange(600,900));
+//    _myAvoid1.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myAvoid1.size];
+//    [_myAvoid1.physicsBody setDynamic:YES];
+//    
+//    _myAvoid1.physicsBody.categoryBitMask = CNPhysicsCategoryAvoid;
+//    _myAvoid1.physicsBody.collisionBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryBalloon | CNPhysicsCategoryDetach;
+//    
+//    [self addChild:_myAvoid1];
+//    NSLog(@"avoid 1 here!!");
     
 }
 
@@ -376,6 +403,22 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
 }
 
+-(void) makeHeart{
+    
+    _myHeart= [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
+    
+    // _myDetach = [[SKSpriteNode alloc]initWithColor: [SKColor greenColor] size:CGSizeMake(25,25)];
+    _myHeart.position = CGPointMake(ScalarRandomRange(15,300), 700);
+    _myHeart.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myHeart.size];
+    [_myHeart.physicsBody setDynamic:YES];
+    //[_myHeart.physicsBody setVelocity:CGVectorMake(0, 100)];
+    
+    _myHeart.physicsBody.categoryBitMask = CNPhysicsCategoryHeart;
+    _myHeart.physicsBody.collisionBitMask = CNPhysicsCategoryBalloon;
+    
+    [self addChild:_myHeart];
+    
+}
 
 -(void) makeDetach{
     
@@ -393,25 +436,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     [self addChild:_myDetach];
     
 }
-
-//-(void)makeWall{
-//        _myWallLeft = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
-//        _myWallLeft.position = CGPointMake(10, 0);
-//        _myWallLeft.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallLeft.size];
-//        [_myWallLeft.physicsBody setDynamic:NO];
-//
-//        [self addChild:_myWallLeft];
-//
-//    _myWallR = [[SKSpriteNode alloc]initWithColor:[SKColor lightGrayColor] size:CGSizeMake(10, 1150)];
-//    _myWallR.position = CGPointMake(315, 0);
-//    _myWallR.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myWallR.size];
-//    [_myWallR.physicsBody setDynamic:NO];
-//
-//    [self addChild:_myWallR];
-
-//}
-
-
 
 - (void)setupUI {
     int barHeight = 45;
@@ -460,7 +484,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     scoreValue = 0;
     // 1
     _healthBar = @"===================================================";
-    testHealth = 100;
+    testHealth = 3;
     //    NSString * actualHealth = [_healthBar substringToIndex:
     //                               (testHealth / 100 * _healthBar.length)];
     // 2
@@ -524,7 +548,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
 }
 
-
 -(id)initWithSize:(CGSize)size {
     
     if (self = [super initWithSize:size]) {
@@ -577,6 +600,8 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         [self makeAvoid];
         [self makeCoins];
         [self makeDetach];
+        [self makeHeart];
+
         
         
         self.physicsWorld.gravity = CGVectorMake(0, -1);
@@ -728,11 +753,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
             }
             
             
-            //FOR THE AVOID SQUARE
-            if (_myAvoid1.position.y < -150) {
-                _myAvoid1.position = CGPointMake(ScalarRandomRange(15,300), 600);
-                _myAvoid1.physicsBody.velocity = CGVectorMake(0, 0);
-            }
+//            //FOR THE AVOID SQUARE
+//            if (_myAvoid1.position.y < -150) {
+//                _myAvoid1.position = CGPointMake(ScalarRandomRange(15,300), 600);
+//                _myAvoid1.physicsBody.velocity = CGVectorMake(0, 0);
+//            }
             
             if (_myCoin.position.y < -170) {
                 _myCoin.position = CGPointMake(ScalarRandomRange(15,300), 600);
@@ -745,7 +770,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                 _myDetach.physicsBody.velocity = CGVectorMake(0, 0);
             }
             
-            
+            if (_myHeart.position.y < -170) {
+                //_myHeart.position = CGPointMake(200, -30);
+                _myHeart.position = CGPointMake(ScalarRandomRange(15,300), 700);
+                _myHeart.physicsBody.velocity = CGVectorMake(0, 0);
+            }
             
             
             NSString * actualHealth = [_healthBar substringToIndex:
@@ -809,7 +838,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     // Reset the score and the players health
     SKLabelNode *scoreLabel = (SKLabelNode *)[_hudLayerNode childNodeWithName:@"scoreLabel"];
     scoreLabel.text = @"Score: 0";
-    testHealth = 100;
+    testHealth = 3;
     
     
     // Remove the game over HUD labels
@@ -821,13 +850,35 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
+    SKPhysicsBody *avoidGuy;
+
     uint32_t collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
-    
     if(collision == (CNPhysicsCategoryBalloon|CNPhysicsCategoryAvoid))
+   
     {
+    if (contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask) {
+        avoidGuy = contact.bodyA;
+        [avoidGuy.node removeFromParent];
+        // same as
+        [contact.bodyA.node removeFromParent];
+    } else{
+        avoidGuy = contact.bodyB;
+        [avoidGuy.node removeFromParent];
+    }
+    
+    
+ 
         NSLog(@"FAIL");
         [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
         testHealth --;
+        
+        //
+//        [_myAvoid removeFromParent];
+        _myAvoid.position = CGPointMake(ScalarRandomRange(15,300), 600);
+        _myAvoid.physicsBody.velocity = CGVectorMake(0, 0);
+        [self makeAvoid];
+        
+        
         
         //        _mySquare2.color = [SKColor blackColor];
         //        _mySquare3.color = [SKColor blackColor];
@@ -839,6 +890,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     }
     else{
         NSLog(@"No longer touching.");
+        
         //        _mySquare2.color = [SKColor grayColor];
         //        _mySquare3.color = [SKColor grayColor];
         //        _mySquare4.color = [SKColor grayColor];
@@ -853,74 +905,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         
     {
         [self runAction:[SKAction playSoundFileNamed:@"coin.wav" waitForCompletion:NO]];
-        
-        if (scoreValue >= 0 && scoreValue < 3) {
-            [_myCoin removeFromParent];
-            [self makeCoins];
-        }
-        if (scoreValue >= 3 && scoreValue < 45) {
-            [_myCoin removeFromParent];
-            [self makeCoins];
-            [self makeAvoid1];
-        }
-        if (scoreValue >= 45 && scoreValue < 150) {
-            [_myCoin removeFromParent];
-            [self makeCoins];
-            [self makeAvoid1];
-            [self makeAvoid1];
-        }
-        if (scoreValue >= 150 && scoreValue < 300) {
-            [_myCoin removeFromParent];
-            [self makeCoins];
-            [self makeAvoid1];
-            [self makeAvoid1];
-            [self makeAvoid1];
-            
-        }
-        //        if (scoreValue > 6 && scoreValue < 14) {
-        //            [_myCoin removeFromParent];
-        //            [self makeCoins];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //
-        //        }
-        //        if (scoreValue > 14 && scoreValue < 24) {
-        //            [_myCoin removeFromParent];
-        //            [self makeCoins];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //
-        //
-        //        }
-        //        if (scoreValue > 24 && scoreValue < 34) {
-        //            [_myCoin removeFromParent];
-        //            [self makeCoins];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //            [self makeAvoid1];
-        //
-        //
-        //
-        //        }
-        //        [_myCoin removeFromParent];
-        //        [self makeCoins];
-        
-        NSLog(@"%f", scoreValue);
-        //[self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
-        
-        _myCoin.color = [SKColor redColor];
         scoreValue ++;
+        NSLog(@"%f", scoreValue);
+        [_myCoin removeFromParent];
+        [self makeCoins];
         
         
-    }
-    else{
+        [self makeAvoidWithScore:scoreValue];
         
-        _myCoin.color = [SKColor blackColor];
     }
     
     
@@ -941,7 +933,124 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         
     }
     
+    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryHeart))
+        
+    {
+        
+       
+        testHealth ++;
+
+        
+        [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
+        [_myHeart removeFromParent];
+        [self makeHeart];
+        
+        NSLog(@"heart");
+        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+        
+        areWeTouchingAString = NO;
+        [_mySquare8.physicsBody setDynamic:YES];
+        
+    
+        
+    }
+    
+    
 }
+
+
+//-(void)didBeginContact:(SKPhysicsContact *)contact
+//{
+
+//    
+//    uint32_t collision = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
+//    
+//    if(collision == (CNPhysicsCategoryBalloon|CNPhysicsCategoryAvoid))
+//    {
+//        NSLog(@"FAIL");
+//        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+//        testHealth --;
+//        
+//        //
+//            [_myAvoid removeFromParent];
+//        _myAvoid.position = CGPointMake(ScalarRandomRange(15,300), 600);
+//        _myAvoid.physicsBody.velocity = CGVectorMake(0, 0);
+//        [self makeAvoid];
+//
+//
+//        
+//        //        _mySquare2.color = [SKColor blackColor];
+//        //        _mySquare3.color = [SKColor blackColor];
+//        //        _mySquare4.color = [SKColor blackColor];
+//        //        _mySquare5.color = [SKColor blackColor];
+//        //        _mySquare6.color = [SKColor blackColor];
+//        //        _mySquare7.color = [SKColor blackColor];
+//        //        _mySquare8.color = [SKColor blackColor];
+//    }
+//    else{
+//        NSLog(@"No longer touching.");
+//
+//        //        _mySquare2.color = [SKColor grayColor];
+//        //        _mySquare3.color = [SKColor grayColor];
+//        //        _mySquare4.color = [SKColor grayColor];
+//        //        _mySquare5.color = [SKColor grayColor];
+//        //        _mySquare6.color = [SKColor grayColor];
+//        //        _mySquare7.color = [SKColor grayColor];
+//        //        _mySquare8.color = [SKColor grayColor];
+//    }
+//    
+//    
+//    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryCoin))
+//        
+//    {
+//        [self runAction:[SKAction playSoundFileNamed:@"coin.wav" waitForCompletion:NO]];
+//        scoreValue ++;
+//        NSLog(@"%f", scoreValue);
+//        [_myCoin removeFromParent];
+//        [self makeCoins];
+//    
+//        
+//        [self makeAvoidWithScore:scoreValue];
+//        
+//    }
+//
+//    
+//    
+//    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryDetach))
+//        
+//    {
+//        [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
+//        [_myDetach removeFromParent];
+//        [self makeDetach];
+//        
+//        NSLog(@"touch");
+//        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+//        
+//        areWeTouchingAString = NO;
+//        [_mySquare8.physicsBody setDynamic:YES];
+//        
+//        
+//    }
+//    
+//    if(collision == (CNPhysicsCategoryBalloon| CNPhysicsCategoryHeart))
+//        
+//    {
+//        testHealth ++;
+//        [self runAction:[SKAction playSoundFileNamed:@"bubble.mp3" waitForCompletion:NO]];
+//        [_myHeart removeFromParent];
+//        [self makeHeart];
+//        
+//        NSLog(@"heart");
+//        [self runAction:[SKAction playSoundFileNamed:@"pop.mp3" waitForCompletion:NO]];
+//        
+//        areWeTouchingAString = NO;
+//        [_mySquare8.physicsBody setDynamic:YES];
+//        
+//        
+//    }
+//
+//    
+//}
 
 /*-(void)didEndContact:(SKPhysicsContact *)contact
  {
