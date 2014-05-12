@@ -66,7 +66,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 //@property SKSpriteNode* myShelf;
 //@property SKSpriteNode* myShelf1;
 
-@property SKPhysicsJointPin* myRopeJoint;
+@property SKPhysicsJointFixed* myRopeJoint;
 @property SKPhysicsJointPin* myRopeJoint1;
 @property SKPhysicsJointPin* myRopeJoint2;
 @property SKPhysicsJointPin* myRopeJoint3;
@@ -97,6 +97,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     SKLabelNode *_gameOverLabel;
     SKLabelNode *_tapScreenLabel;
     int _gameState;
+    
+    SKEmitterNode *_BalloonAir;
+    SKEmitterNode *_BalloonAir2;
 }
 
 
@@ -109,7 +112,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
 -(void) activateJointRope{
     
     
-    _myRopeJoint = [SKPhysicsJointPin jointWithBodyA:_myCircle.physicsBody bodyB:_mySquare2.physicsBody anchor:_myCircle.position];
+    _myRopeJoint = [SKPhysicsJointFixed jointWithBodyA:_myCircle.physicsBody bodyB:_mySquare2.physicsBody anchor:_myCircle.position];
     
     [self.physicsWorld addJoint:_myRopeJoint];
     
@@ -281,6 +284,26 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _mySquare8.physicsBody.contactTestBitMask = CNPhysicsCategoryAvoid | CNPhysicsCategoryCoin | CNPhysicsCategoryDetach | CNPhysicsCategoryHeart;
     
     
+    //particle effects***
+    _BalloonAir = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"BalloonAir" ofType:@"sks"]];
+    //_BalloonAir.position = CGPointMake(_myCircle.size.width-45, _myCircle.size.height-30);
+    _BalloonAir.position = CGPointMake(_myCircle.position.x-10, _myCircle.position.y+5);
+    _BalloonAir.hidden = YES;
+    [self addChild:_BalloonAir];
+    
+    _BalloonAir2 = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"BalloonAir2" ofType:@"sks"]];
+    
+    //_BalloonAir2.position = CGPointMake(_myCircle.size.width-25, _myCircle.size.height-40);
+    _BalloonAir2.position = CGPointMake(_myCircle.position.x+10, _myCircle.position.y+5);
+    _BalloonAir2.hidden = YES;
+    [self addChild:_BalloonAir2];
+    
+    
+    //_BalloonAir.hidden = testHealth > 30;
+    
+    //end particle fx****
+    
+    
     
 }
 
@@ -408,7 +431,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     _myHeart= [SKSpriteNode spriteNodeWithImageNamed:@"heart.png"];
     
     // _myDetach = [[SKSpriteNode alloc]initWithColor: [SKColor greenColor] size:CGSizeMake(25,25)];
-    _myHeart.position = CGPointMake(ScalarRandomRange(15,300), 700);
+    _myHeart.position = CGPointMake(ScalarRandomRange(15,300), -30);
     _myHeart.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:_myHeart.size];
     [_myHeart.physicsBody setDynamic:YES];
     //[_myHeart.physicsBody setVelocity:CGVectorMake(0, 100)];
@@ -720,6 +743,9 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     
     [_myDetach.physicsBody setVelocity:CGVectorMake(0, 100)];
     
+    _BalloonAir.position = CGPointMake(_myCircle.position.x-10, _myCircle.position.y+5);
+    _BalloonAir2.position = CGPointMake(_myCircle.position.x+10, _myCircle.position.y+5);
+    
     
     
     switch (_gameState) {
@@ -770,7 +796,7 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
                 _myDetach.physicsBody.velocity = CGVectorMake(0, 0);
             }
             
-            if (_myHeart.position.y < -170) {
+            if (_myHeart.position.y < -2170) {
                 //_myHeart.position = CGPointMake(200, -30);
                 _myHeart.position = CGPointMake(ScalarRandomRange(15,300), 700);
                 _myHeart.physicsBody.velocity = CGVectorMake(0, 0);
@@ -815,9 +841,6 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
             }
             
             
-            
-            
-            
         }
             
     }
@@ -832,6 +855,11 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     [self spawnSquares];
     [self activateJointRope];
     
+    _BalloonAir.hidden = YES;
+    _BalloonAir2.hidden = YES;
+    
+    //[self addChild:_BalloonAir];
+    //[self addChild:_BalloonAir2];
     
     scoreValue = 0;
     
@@ -878,12 +906,27 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
              [SKAction animateWithTextures:
               @[[SKTexture textureWithImageNamed:@"damage1.png"]]
                               timePerFrame:0.25]];
+            
+            _BalloonAir.hidden = NO;
+            _BalloonAir2.hidden = YES;
+            NSLog(@"Small air appear");
         }
         if (testHealth == 1) {
             [_myCircle runAction:
              [SKAction animateWithTextures:
               @[[SKTexture textureWithImageNamed:@"damage2.png"]]
                               timePerFrame:0.25]];
+            
+            _BalloonAir2.hidden = NO;
+            _BalloonAir.hidden = NO;
+            NSLog(@"More air appears");
+        }
+        
+        if (testHealth <= 0) {
+            [_BalloonAir removeFromParent];
+            [_BalloonAir2 removeFromParent];
+            
+            NSLog(@"No more air");
         }
         
         NSLog(@"health: %f", testHealth);
@@ -955,11 +998,14 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
     {
         
        
-        testHealth ++;
+        //testHealth ++;
        
-        if (testHealth >= 3) {
+        if (testHealth == 3) {
             testHealth =3;
            
+            _BalloonAir.hidden= YES;
+            _BalloonAir2.hidden= YES;
+            
 
                 [_myCircle runAction:
                  [SKAction animateWithTextures:
@@ -970,6 +1016,23 @@ typedef NS_OPTIONS(uint32_t, CNPhysicsCategory)
         
         
         if (testHealth == 2) {
+            testHealth ++;
+            
+            [_myCircle runAction:
+             [SKAction animateWithTextures:
+              @[[SKTexture textureWithImageNamed:@"balloon.png"]]
+                              timePerFrame:0.25]];
+            
+            
+            _BalloonAir2.hidden=YES;
+            _BalloonAir.hidden=YES;
+            
+        }
+        
+        if (testHealth == 1) {
+            testHealth ++;
+            _BalloonAir2.hidden=YES;
+            _BalloonAir.hidden=NO;
             
             [_myCircle runAction:
              [SKAction animateWithTextures:

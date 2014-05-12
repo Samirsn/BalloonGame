@@ -45,6 +45,10 @@
 		F09E891518F3927000022C19 /* bubble.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F09E891118F3927000022C19 /* bubble.mp3 */; };
 		F09E891618F3927000022C19 /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = F09E891218F3927000022C19 /* coin.wav */; };
 		F09E891718F3927000022C19 /* coinUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F09E891318F3927000022C19 /* coinUp.mp3 */; };
+		F0A1F00E1920495000FCCDBF /* Start.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A1F00D1920495000FCCDBF /* Start.m */; };
+		F0B9E2D7190C7811006B1BB1 /* BalloonAir.sks in Resources */ = {isa = PBXBuildFile; fileRef = F0B9E2D6190C7811006B1BB1 /* BalloonAir.sks */; };
+		F0B9E2D9190C7819006B1BB1 /* BalloonAir2.sks in Resources */ = {isa = PBXBuildFile; fileRef = F0B9E2D8190C7819006B1BB1 /* BalloonAir2.sks */; };
+		F0B9E2DB190C781E006B1BB1 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = F0B9E2DA190C781E006B1BB1 /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +111,11 @@
 		F09E891118F3927000022C19 /* bubble.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bubble.mp3; sourceTree = "<group>"; };
 		F09E891218F3927000022C19 /* coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin.wav; sourceTree = "<group>"; };
 		F09E891318F3927000022C19 /* coinUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinUp.mp3; sourceTree = "<group>"; };
+		F0A1F00C1920495000FCCDBF /* Start.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Start.h; sourceTree = "<group>"; };
+		F0A1F00D1920495000FCCDBF /* Start.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Start.m; sourceTree = "<group>"; };
+		F0B9E2D6190C7811006B1BB1 /* BalloonAir.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BalloonAir.sks; sourceTree = "<group>"; };
+		F0B9E2D8190C7819006B1BB1 /* BalloonAir2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BalloonAir2.sks; sourceTree = "<group>"; };
+		F0B9E2DA190C781E006B1BB1 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,11 +177,14 @@
 		D56006CB18B2896800D0C342 /* 4physicsBodys_Linked_By_RopeJoint */ = {
 			isa = PBXGroup;
 			children = (
+				F0B9E2D5190C7806006B1BB1 /* Particles */,
 				D56006D418B2896800D0C342 /* AppDelegate.h */,
 				D56006D518B2896800D0C342 /* AppDelegate.m */,
 				D56006D718B2896800D0C342 /* Main.storyboard */,
 				D56006DA18B2896800D0C342 /* ViewController.h */,
 				D56006DB18B2896800D0C342 /* ViewController.m */,
+				F0A1F00C1920495000FCCDBF /* Start.h */,
+				F0A1F00D1920495000FCCDBF /* Start.m */,
 				D56006DD18B2896800D0C342 /* MyScene.h */,
 				D56006DE18B2896800D0C342 /* MyScene.m */,
 				D56006E018B2896800D0C342 /* Spaceship.png */,
@@ -251,6 +263,16 @@
 				F08D2E5218E4E07400BEFE19 /* win.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		F0B9E2D5190C7806006B1BB1 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				F0B9E2DA190C781E006B1BB1 /* spark.png */,
+				F0B9E2D8190C7819006B1BB1 /* BalloonAir2.sks */,
+				F0B9E2D6190C7811006B1BB1 /* BalloonAir.sks */,
+			);
+			name = Particles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +356,7 @@
 				F09E890C18F391B500022C19 /* avoid.png in Resources */,
 				F09E891418F3927000022C19 /* BalloonSong.mp3 in Resources */,
 				F09E890E18F391B500022C19 /* bubble.png in Resources */,
+				F0B9E2D9190C7819006B1BB1 /* BalloonAir2.sks in Resources */,
 				D56006E318B2896800D0C342 /* Images.xcassets in Resources */,
 				F09E891718F3927000022C19 /* coinUp.mp3 in Resources */,
 				A8A9EDE6190C6F73008E57CB /* damage2.png in Resources */,
@@ -342,8 +365,10 @@
 				F08D2E5318E4E07400BEFE19 /* bgMusic.mp3 in Resources */,
 				A8B0646019031E2100500A96 /* heart.png in Resources */,
 				F08D2E5618E4E07400BEFE19 /* win.mp3 in Resources */,
+				F0B9E2DB190C781E006B1BB1 /* spark.png in Resources */,
 				A8B0645E19030AD000500A96 /* smoke.png in Resources */,
 				D56006E118B2896800D0C342 /* Spaceship.png in Resources */,
+				F0B9E2D7190C7811006B1BB1 /* BalloonAir.sks in Resources */,
 				D56006D918B2896800D0C342 /* Main.storyboard in Resources */,
 				F08D2E5518E4E07400BEFE19 /* pop.mp3 in Resources */,
 				F09E890D18F391B500022C19 /* balloon.png in Resources */,
@@ -369,6 +394,7 @@
 			files = (
 				D56006DF18B2896800D0C342 /* MyScene.m in Sources */,
 				F08D2E4C18E4D54300BEFE19 /* SKTAudio.m in Sources */,
+				F0A1F00E1920495000FCCDBF /* Start.m in Sources */,
 				D56006DC18B2896800D0C342 /* ViewController.m in Sources */,
 				F08D2E4A18E4D54300BEFE19 /* SKEmitterNode+SKTExtras.m in Sources */,
 				F08D2E4D18E4D54300BEFE19 /* SKTUtils.mm in Sources */,
